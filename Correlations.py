@@ -113,7 +113,7 @@ class ExternalCorrelations:
 
         elif .6 <= self.dim_par_data['pr'] <= 60 and self.mix_isothermal():
 
-            # CRITICAL REYNOLDS NUMBER IS 5e5
+            # CRITICAL REYNOLDS NUMBER IS 5e51
 
             return (.037 * self.dim_par_data['re'] ** 4/5 - 871) * self.dim_par_data['pr'] ** 1/3
 
