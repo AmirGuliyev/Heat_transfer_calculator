@@ -1,21 +1,22 @@
-"""     self.data.['h'] = h             # Heat transfer coefficient
-        self.data['length'] = length    # Characteristic length
-        self.data['ks'] = ks            # Solid heat conduction coefficient
-        self.data['hm'] = hm            # Mass transfer coefficient
-        self.data['d_ab'] = d_ab        # Binary diffusion coefficient
-        self.data['d'] = d              # Diameter
-        self.data['tau'] = g            # Gravitational acceleration constant
-        self.data['v'] = v              # Velocity
-        self.data['k'] = k              # Bulk modulus
-        self.data['cp'] = cp            # Const pressure specific heat capacity
-        self.data['t_sur'] = t_sur      # Surface temperature
-        self.data['t_sat'] = t_sat      # Saturation temperature
-        self.data['t_f'] = t_f          # Fluid temperature
+"""     self.data.['h'] = h             # Heat transfer coefficient, W / m^2 * K
+        self.data['length'] = length    # Characteristic length, m
+        self.data['A'] = Area           # Area, m^2
+        self.data['ks'] = ks            # Solid heat conduction coefficient,
+        self.data['hm'] = hm            # Mass transfer coefficient,
+        self.data['d_ab'] = d_ab        # Binary diffusion coefficient,
+        self.data['d'] = d              # Diameter, m
+        self.data['tau'] = g            # Gravitational acceleration constant, m^2 / s
+        self.data['v'] = v              # Velocity, m / s
+        self.data['k'] = k              # Bulk modulus,
+        self.data['cp'] = cp            # Const pressure specific heat capacity, J / K
+        self.data['t_sur'] = t_sur      # Surface temperature, K
+        self.data['t_sat'] = t_sat      # Saturation temperature, K
+        self.data['t_f'] = t_f          # Fluid temperature, K
         self.data['alpha'] = alpha      # Thermal diffusivity
-        self.data['t'] = t              # Time
-        self.data['m_dot'] = m_dot      # Mass flux
+        self.data['t'] = t              # Time, s
+        self.data['m_dot'] = m_dot      # Mass flux, kg / s
         self.data['tau'] = tau          # Surface shear stress
-        self.data['dp'] = dp            # Pressure Drop
+        self.data['dp'] = dp            # Pressure Drop,
         self.data['rho'] = rho          # Density
         self.data['d_rho'] = d_rho      # Vapor-liquid density difference
         self.data['um'] = um            # Internal flow velocity
@@ -288,7 +289,7 @@ class DimGro:
 
         if self.data['h'] is not None and self.data['length'] is not None and self.data['kf'] is not None:
 
-            result = self.data['h'] * self.data['length'] * self.data['kf']
+            result = self.data['h'] * self.data['length'] / self.data['kf']
 
             if numeric:
 
@@ -369,7 +370,7 @@ class DimGro:
         prandtl = self.pr(numeric=True)
         return stanton * prandtl**(2/3)
 
-    def cojm(self):
+    def coj_m(self):
         # Colburn j factor mass
         stantonmass = self.stm(numeric=True)
         schmidt = self.sc(numeric=True)

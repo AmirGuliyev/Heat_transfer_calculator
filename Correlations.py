@@ -1,9 +1,10 @@
 import numpy as np
+import DimPar as Dp
 
-class ExternalCorrelations:
-    def __init__(self, data, dim_par_data):
+class FlowtypeAndTemperature:
+    def __init__(self, data):
+
         self.data = data
-        self.dim_par_data = dim_par_data
 
     def lam_isothermal(self):
 
@@ -24,6 +25,12 @@ class ExternalCorrelations:
     def turb_unheated(self):
 
         return self.data['flow_type'] == 'turbulent' and self.data['plate_temp'] == 'unheated'
+
+
+class ExternalCorrelations(FlowtypeAndTemperature):
+    def __init__(self, data, dim_par_data):
+        super().__init__(data)
+        self.dim_par_data = dim_par_data
 
     def delta_v(self):
 
