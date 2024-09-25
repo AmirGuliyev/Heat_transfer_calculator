@@ -1,5 +1,5 @@
 import numpy as np
-import DimPar as Dp
+
 
 class FlowtypeAndTemperature:
     def __init__(self, data):
@@ -25,12 +25,15 @@ class FlowtypeAndTemperature:
     def turb_unheated(self):
 
         return self.data['flow_type'] == 'turbulent' and self.data['plate_temp'] == 'unheated'
-
-
+#a
 class ExternalCorrelations(FlowtypeAndTemperature):
     def __init__(self, data, dim_par_data):
         super().__init__(data)
         self.dim_par_data = dim_par_data
+
+    def t_foam(self):
+
+        return (self.data['t_fluid'] + self.data['t_sur']) / 2
 
     def delta_v(self):
 
@@ -141,3 +144,4 @@ class ExternalCorrelations(FlowtypeAndTemperature):
             # CRITICAL REYNOLDS NUMBER IS 5e5
 
             return (.037 * self.dim_par_data['re'] ** 4 / 5 - 871) * self.dim_par_data['sc'] ** 1 / 3
+

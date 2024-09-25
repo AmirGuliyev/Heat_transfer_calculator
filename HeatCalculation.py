@@ -1,5 +1,7 @@
 from Correlations import ExternalCorrelations
 
+__all__ = ["Heat"]
+
 class Heat(ExternalCorrelations):
     def __init__(self, data, dim_par_data):
         super().__init__(data, dim_par_data)
@@ -15,4 +17,3 @@ class Heat(ExternalCorrelations):
     def total_heat_transfer_rate(self):
 
         return self.total_heat_transfer_flux() * self.data['A']
-

@@ -11,7 +11,7 @@
         self.data['cp'] = cp            # Const pressure specific heat capacity, J / K
         self.data['t_sur'] = t_sur      # Surface temperature, K
         self.data['t_sat'] = t_sat      # Saturation temperature, K
-        self.data['t_f'] = t_f          # Fluid temperature, K
+        self.data['t_fluid'] = t_fluid  # Fluid temperature, K
         self.data['alpha'] = alpha      # Thermal diffusivity
         self.data['t'] = t              # Time, s
         self.data['m_dot'] = m_dot      # Mass flux, kg / s
@@ -34,7 +34,6 @@
         self.data['delta_c'] = delta_c              # Concentration boundary layer"""
 
 import numpy as np
-
 
 class DimGro:
 
@@ -334,7 +333,7 @@ class DimGro:
 
     def ec(self):
         # Eckert
-        return self.data['v']**2 / (self.data['cp'] * (self.data['t_sur'] - self.data['t_f']))
+        return self.data['v']**2 / (self.data['cp'] * (self.data['t_sur'] - self.data['t_fluid']))
 
     def fo(self):
         # Fourier
@@ -362,7 +361,7 @@ class DimGro:
 
     def grl(self):
         # Grashoff
-        return self.data['tau'] * self.data['beta'] * (self.data['t_sur'] - self.data['t_f']) * self.data['length']**3 / self.data['nu']
+        return self.data['tau'] * self.data['beta'] * (self.data['t_sur'] - self.data['t_fluid']) * self.data['length']**3 / self.data['nu']
 
     def coj(self):
         # Colburn j factor
@@ -390,7 +389,7 @@ class DimGro:
 
     def ra(self):
         # Rayleigh
-        return self.data['tau'] * self.data['beta'] * (self.data['t_sur'] - self.data['t_f']) * self.data['length']**3 / (self.data['nu'] * self.data['alpha'])
+        return self.data['tau'] * self.data['beta'] * (self.data['t_sur'] - self.data['t_fluid']) * self.data['length']**3 / (self.data['nu'] * self.data['alpha'])
 
     def ca(self):
         # Cauchy
