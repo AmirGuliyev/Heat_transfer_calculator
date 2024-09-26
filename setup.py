@@ -8,5 +8,6 @@ setup(
     license='MIT',
     author='AmirG',
     author_email='guliyevamir@yahoo.com',
-    description='Basic heat translator calculator for most undergrad textbook questions'
+    description='Basic heat translator calculator for most undergrad textbook questions',
+    install_requires= ['numpy','pyfluids'],
 )

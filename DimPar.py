@@ -28,12 +28,13 @@
         self.data['mu'] = mu                        # Dynamic viscosity
         self.data['sigma'] = sigma                  # Surface tension
         self.data['flow_type'] = flow_type          # flow_type
-        self.data['int_flow_geom'] = int_flow_geom    # Internal flow geometry
+        self.data['int_flow_geom'] = int_flow_geom  # Internal flow geometry
         self.data['delta_v'] = delta_v              # Velocity boundary layer
         self.data['delta_t'] = delta_t              # Thermal boundary layer
         self.data['delta_c'] = delta_c              # Concentration boundary layer"""
 
 import numpy as np
+
 
 class DimGro:
 

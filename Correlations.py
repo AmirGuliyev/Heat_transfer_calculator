@@ -25,7 +25,7 @@ class FlowtypeAndTemperature:
     def turb_unheated(self):
 
         return self.data['flow_type'] == 'turbulent' and self.data['plate_temp'] == 'unheated'
-#amogus
+
 class ExternalCorrelations(FlowtypeAndTemperature):
     def __init__(self, data, dim_par_data):
         super().__init__(data)
