@@ -1,4 +1,4 @@
-from Correlations import ExternalCorrelations
+from calculations.correlations import ExternalCorrelations
 
 __all__ = ["Heat"]
 

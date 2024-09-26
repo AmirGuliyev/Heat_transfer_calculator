@@ -1,40 +1,6 @@
-"""     self.data.['h'] = h             # Heat transfer coefficient, W / m^2 * K
-        self.data['length'] = length    # Characteristic length, m
-        self.data['A'] = Area           # Area, m^2
-        self.data['ks'] = ks            # Solid heat conduction coefficient,
-        self.data['hm'] = hm            # Mass transfer coefficient,
-        self.data['d_ab'] = d_ab        # Binary diffusion coefficient,
-        self.data['d'] = d              # Diameter, m
-        self.data['tau'] = g            # Gravitational acceleration constant, m^2 / s
-        self.data['v'] = v              # Velocity, m / s
-        self.data['k'] = k              # Bulk modulus,
-        self.data['cp'] = cp            # Const pressure specific heat capacity, J / K
-        self.data['t_sur'] = t_sur      # Surface temperature, K
-        self.data['t_sat'] = t_sat      # Saturation temperature, K
-        self.data['t_fluid'] = t_fluid  # Fluid temperature, K
-        self.data['alpha'] = alpha      # Thermal diffusivity
-        self.data['t'] = t              # Time, s
-        self.data['m_dot'] = m_dot      # Mass flux, kg / s
-        self.data['tau'] = tau          # Surface shear stress
-        self.data['dp'] = dp            # Pressure Drop,
-        self.data['rho'] = rho          # Density
-        self.data['d_rho'] = d_rho      # Vapor-liquid density difference
-        self.data['um'] = um            # Internal flow velocity
-        self.data['beta'] = beta        # Volumetric thermal expansion coefficient
-        self.data.f_lift = f_lift                   # Lift force
-        self.data['h_fg'] = h_fg                    # Latent energy during liquid-vapor phase change
-        self.data['kf'] = kf                        # Fluid heat conduction coefficient
-        self.data['nu'] = nu                        # Kinematic viscosity
-        self.data['mu'] = mu                        # Dynamic viscosity
-        self.data['sigma'] = sigma                  # Surface tension
-        self.data['flow_type'] = flow_type          # flow_type
-        self.data['int_flow_geom'] = int_flow_geom  # Internal flow geometry
-        self.data['delta_v'] = delta_v              # Velocity boundary layer
-        self.data['delta_t'] = delta_t              # Thermal boundary layer
-        self.data['delta_c'] = delta_c              # Concentration boundary layer"""
-
 import numpy as np
 
+__all__ = ["DimGro"]
 
 class DimGro:
 
