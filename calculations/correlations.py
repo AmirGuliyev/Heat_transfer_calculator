@@ -1,33 +1,11 @@
 import numpy as np
+from values.flow_conditions import *
+from typing import Dict, Union
 
+__all__ = ["ExternalCorrelations"]
 
-class FlowtypeAndTemperature:
-    def __init__(self, data):
-
-        self.data = data
-
-    def lam_isothermal(self):
-
-        return self.data['flow_type'] == 'laminar' and self.data['plate_temp'] == "isothermal"
-
-    def turb_isothermal(self):
-
-        return self.data['flow_type'] == 'turbulent' and self.data['plate_temp'] == "isothermal"
-
-    def mix_isothermal(self):
-
-        return self.data['flow_type'] == 'mixed' and self.data['plate_temp'] == "isothermal"
-
-    def lam_unheated(self):
-
-        return self.data['flow_type'] == 'laminar' and self.data['plate_temp'] == 'unheated'
-
-    def turb_unheated(self):
-
-        return self.data['flow_type'] == 'turbulent' and self.data['plate_temp'] == 'unheated'
-
-class ExternalCorrelations(FlowtypeAndTemperature):
-    def __init__(self, data, dim_par_data):
+class ExternalCorrelations():
+    def __init__(self, data: Dict[str, Union[float, str]], dim_par_data: Dict[str,float]):
         super().__init__(data)
         self.dim_par_data = dim_par_data
 
@@ -123,7 +101,7 @@ class ExternalCorrelations(FlowtypeAndTemperature):
 
         elif .6 <= self.dim_par_data['pr'] <= 60 and self.mix_isothermal():
 
-            # CRITICAL REYNOLDS NUMBER IS 5e51
+            # CRITICAL REYNOLDS NUMBER IS 5e5
 
             return (.037 * self.dim_par_data['re'] ** 4/5 - 871) * self.dim_par_data['pr'] ** 1/3
 
