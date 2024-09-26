@@ -8,7 +8,7 @@ class DimGro:
 
         self.data = data
 
-    def re(self, numeric=False):
+    def re(self, numeric=True):
 
         # Reynolds
 
@@ -56,7 +56,7 @@ class DimGro:
 
                     return f"For internal flow Re number is {result}"
 
-    def pr(self, numeric=False):
+    def pr(self, numeric = True):
 
         # Prandtl
 
@@ -92,7 +92,7 @@ class DimGro:
             return (f"Through velocity boundary layer and thermal boundary layer "
                     f"Pr number is {result}")
 
-    def sc(self, numeric = False):
+    def sc(self, numeric = True):
 
         # Schmidt
 
@@ -118,7 +118,7 @@ class DimGro:
             return (f"Through velocity boundary layer and thermal boundary layer "
                     f"Sc number is {result}")
 
-    def st(self, numeric=False):
+    def st(self, numeric = True):
 
         # Stanton
 
@@ -149,7 +149,7 @@ class DimGro:
 
             return f"Through Nu, Re and Pr dimensionless parameters St number is {nusselt / (reynold * prandtl)}"
 
-    def stm(self, numeric=False):
+    def stm(self, numeric = True):
 
         # Stanton mass
 
@@ -179,7 +179,7 @@ class DimGro:
 
             return f"Through Sh, Re and Sc dimensionless parameters Stanton(mass) number is {sherwood / (reynolds * schmidt)}"
 
-    def pe(self, numeric = False):
+    def pe(self, numeric = True):
 
         # Pecklet
 
@@ -207,7 +207,7 @@ class DimGro:
 
             return f"Through Re and Pr dimensionless parameters, Pe number is {reynolds * prandtl}"
 
-    def le(self, numeric = False):
+    def le(self, numeric = True):
 
         # Lewis
 
@@ -245,7 +245,7 @@ class DimGro:
                     
                     f"Pr number is {(self.data['delta_t'] / self.data['delta_c'])**3}")
 
-    def nu(self, numeric=False):
+    def nu(self, numeric = True):
 
         # Nusselt
 
