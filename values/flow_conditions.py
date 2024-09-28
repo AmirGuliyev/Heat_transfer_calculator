@@ -1,5 +1,5 @@
 from typing import Dict, Union
-from values.dimensionless_parameters import *
+
 
 __all__ = ["FlowtypeAndTemperature"]
 

@@ -13,45 +13,35 @@ class DimGro:
         # Reynolds
 
         if self.data['flow_geom'] == "external":
-
             result = self.data['v'] * self.data['length'] / self.data['nu']
 
             if result < 5e8:
-
                 if numeric:
-
                     return result
 
                 return f"For external flow Re number is {result}. Flow is laminar"
 
             elif 5e8 < result < 1e9:
-
                 if numeric:
-
                     return result
 
                 return f"For external flow Re number is {result}. Flow is mixed"
 
         else:
-
             match self.data['int_flow_geom']:
 
                 case "circular":
-
                     result = 4 * self.data['m_dot'] / (np.pi * self.data['d'] * self.data['nu'])
 
                     if numeric:
-
                         return result
 
                     return (f"For internal flow of circular geometry Re number is "
                             f"{result}")
                 case _:
-
                     result = self.data['v'] * self.data['d'] / self.data['nu']
 
                     if numeric:
-
                         return result
 
                     return f"For internal flow Re number is {result}"
