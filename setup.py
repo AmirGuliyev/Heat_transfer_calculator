@@ -9,5 +9,5 @@ setup(
     author='AmirG',
     author_email='guliyevamir@yahoo.com',
     description='Basic heat translator calculator for most undergrad textbook questions',
-    install_requires= ['numpy','pyfluids'],
+   install_requires= ['numpy','fluidprop'],
 )
