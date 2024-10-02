@@ -8,261 +8,108 @@ class DimGro:
 
         self.data = data
 
-    def re(self, numeric=True):
-
+    def re(self):
         # Reynolds
-
         if self.data['flow_geom'] == "external":
             result = self.data['v'] * self.data['length'] / self.data['nu']
-
             if result < 5e8:
-                if numeric:
-                    return result
-
-                return f"For external flow Re number is {result}. Flow is laminar"
-
+                   return result
             elif 5e8 < result < 1e9:
-                if numeric:
                     return result
-
-                return f"For external flow Re number is {result}. Flow is mixed"
-
         else:
             match self.data['int_flow_geom']:
-
                 case "circular":
                     result = 4 * self.data['m_dot'] / (np.pi * self.data['d'] * self.data['nu'])
-
-                    if numeric:
-                        return result
-
-                    return (f"For internal flow of circular geometry Re number is "
-                            f"{result}")
+                    return result
                 case _:
                     result = self.data['v'] * self.data['d'] / self.data['nu']
+                    return result
 
-                    if numeric:
-                        return result
-
-                    return f"For internal flow Re number is {result}"
-
-    def pr(self, numeric = True):
-
+    def pr(self):
         # Prandtl
-
-        if self.data['cp'] is not None and self.data['mu'] is not None and self.data['kf'] is not None:
+        if self.data['cp'] and self.data['mu'] and self.data['kf']:
             result = self.data['cp'] * self.data['mu'] / self.data['kf']
-
-            if numeric:
-
-                return result
-
-            return (f"Through specific heat, dynamic viscosity and fluid thermal conductivity "
-                    f"Pr number is {result}")
-
-        elif self.data['nu'] is not None and self.data['alpha'] is None:
-
-            result = self.data['nu'] / self.data['alpha']
-
-            if numeric:
-
-                return result
-
-            return (f"Through kinematic viscosity and thermal diffusivity "
-                    f"Pr number is {result}")
-
-        elif self.data['delta_v'] is not None and self.data['delta_t'] is None:
-
-            result = (self.data['delta_v'] / self.data['delta_t']) ** 3
-
-            if numeric:
-
-                return result
-
-            return (f"Through velocity boundary layer and thermal boundary layer "
-                    f"Pr number is {result}")
-
-    def sc(self, numeric = True):
-
-        # Schmidt
-
-        if self.data['nu'] is not None and self.data['d_ab'] is not None:
-
-            result = self.data['nu'] / self.data['d_ab']
-
-            if numeric:
-
-                return result
-
-            return (f"Through kinematic viscosity and binary diffusion coefficient "
-                    f"Sc number is {result}")
-
-        elif self.data['delta_v'] is not None and self.data['delta_c'] is None:
-
-            result = (self.data['delta_v'] / self.data['delta_c']) ** 3
-
-            if numeric:
-
-                return result
-
-            return (f"Through velocity boundary layer and thermal boundary layer "
-                    f"Sc number is {result}")
-
-    def st(self, numeric = True):
-
-        # Stanton
-
-        nusselt = self.nu()
-
-        reynold = self.re()
-
-        prandtl = self.pr()
-
-        if self.data['h'] is not None and self.data['rho'] is not None and self.data['v'] is not None and self.data['cp'] is not None:
-
-            result = self.data['h'] * self.data['rho'] * self.data['v'] * self.data['cp']
-
-            if numeric:
-
-                return result
-
-            return (f"Through heat transfer coefficient, fluid density, fluid velocity and constant pressure "
-                    f"specific heat capacity St number is {self.data['h'] / (self.data['rho'] * self.data['v'] * self.data['cp'])})")
-
-        elif nusselt is not None and reynold is not None and prandtl is not None:
-
-            result = nusselt / (reynold * prandtl)
-
-            if numeric:
-
-                return result
-
-            return f"Through Nu, Re and Pr dimensionless parameters St number is {nusselt / (reynold * prandtl)}"
-
-    def stm(self, numeric = True):
-
-        # Stanton mass
-
-        reynolds = self.re()
-
-        sherwood = self.sh()
-
-        schmidt = self.sc()
-
-        if self.data['hm'] is not None and self.data['v'] is not None:
-
-            result = self.data['hm'] / self.data['v']
-
-            if numeric:
-
-                return result
-
             return result
 
-        elif sherwood is not None and schmidt is not None and reynolds is not None:
+        elif self.data['nu'] and not self.data['alpha']:
+            result = self.data['nu'] / self.data['alpha']
+            return result
 
-            result = sherwood / (schmidt * reynolds)
+        elif self.data['delta_v'] and not self.data['delta_t']:
+            result = (self.data['delta_v'] / self.data['delta_t']) ** 3
+            return result
 
-            if numeric:
+    def sc(self):
+        # Schmidt
+        if self.data['nu'] and self.data['d_ab']:
+            result = self.data['nu'] / self.data['d_ab']
+            return result
+        elif self.data['delta_v'] and self.data['delta_c']:
+            result = (self.data['delta_v'] / self.data['delta_c']) ** 3
+            return result
 
-                return result
+    def st(self):
+        # Stanton
+        nusselt = self.nu()
+        reynold = self.re()
+        prandtl = self.pr()
+        if self.data['h'] and self.data['rho'] and self.data['v'] and self.data['cp']:
+            result = self.data['h'] * self.data['rho'] * self.data['v'] * self.data['cp']
+            return result
 
-            return f"Through Sh, Re and Sc dimensionless parameters Stanton(mass) number is {sherwood / (reynolds * schmidt)}"
+        elif nusselt and reynold and prandtl:
+            result = nusselt / (reynold * prandtl)
+            return result
 
-    def pe(self, numeric = True):
-
-        # Pecklet
-
+    def stm(self):
+        # Stanton mass
         reynolds = self.re()
-
-        prandtl = self.pr()
-
-        if self.data['v'] is not None and self.data['length'] is not None and self.data['alpha'] is not None:
-
-            result = self.data['v'] * self.data['length'] / self.data['alpha']
-
-            if numeric:
-
-                return result
-
-            return f"Through velocity, length and thermal diffusivity Pe number is {self.data['v'] * self.data['length'] / self.data['alpha']}"
-
-        elif reynolds is not None and prandtl is not None:
-
-            result = reynolds * prandtl
-
-            if numeric:
-
-                return result
-
-            return f"Through Re and Pr dimensionless parameters, Pe number is {reynolds * prandtl}"
-
-    def le(self, numeric = True):
-
-        # Lewis
-
+        sherwood = self.sh()
         schmidt = self.sc()
+        if self.data['hm'] and self.data['v']:
+            result = self.data['hm'] / self.data['v']
+            return result
+        elif sherwood and schmidt and reynolds:
+            result = sherwood / (schmidt * reynolds)
+            return result
 
+    def pe(self):
+        # Pecklet
+        reynolds = self.re()
         prandtl = self.pr()
+        if self.data['v'] and self.data['length'] and self.data['alpha']:
+            result = self.data['v'] * self.data['length'] / self.data['alpha']
+            return result
+        elif reynolds and prandtl:
+            result = reynolds * prandtl
+            return result
 
+    def le(self):
+        # Lewis
+        schmidt = self.sc()
+        prandtl = self.pr()
         if self.data['alpha'] is not None and self.data['d_ab'] is not None:
-
             result = self.data['alpha'] / self.data['d_ab']
-
-            if numeric:
-
-                return result
-
-            return f"Through thermal diffusivity and binary diffusion coefficient Le number is {self.data['alpha'] / self.data['d_ab']}"
+            return result
 
         elif schmidt is not None and prandtl is not None:
-
-            if numeric:
-
-                return schmidt / prandtl
-
-            return f"Through Sc and Pr dimensionless parameters Le number is {schmidt / prandtl}"
+            return schmidt / prandtl
 
         elif self.data['delta_t'] is not None and self.data['delta_c'] is not None:
-
             result = (self.data['delta_t'] / self.data['delta_c'])**3
+            return result
 
-            if numeric:
-
-                return result
-
-            return (f"Through thermal boundary layer and concentration boundary layer "
-                    
-                    f"Pr number is {(self.data['delta_t'] / self.data['delta_c'])**3}")
-
-    def nu(self, numeric = True):
-
+    def nu(self):
         # Nusselt
-
         reynolds = self.re()
-
         prandtl = self.pr()
 
         if self.data['h'] is not None and self.data['length'] is not None and self.data['kf'] is not None:
-
             result = self.data['h'] * self.data['length'] / self.data['kf']
-
-            if numeric:
-
-                return result
-
-            return (f"Through heat convection coefficient, length and fluid's thermal conduction "
-                    f"Nu number is {self.data['h'] * self.data['length'] / self.data['kf']}")
-
+            return result
         elif reynolds is not None and prandtl is not None:
-
             result = reynolds * prandtl
-
-            if numeric:
-
-                return result
-
-            return f"Through Re and Pr dimensionless parameters, Nu number is {result}"
+            return result
 
     def bi(self):
         # Biot
@@ -322,14 +169,14 @@ class DimGro:
 
     def coj(self):
         # Colburn j factor
-        stanton = self.st(numeric=True)
-        prandtl = self.pr(numeric=True)
+        stanton = self.st()
+        prandtl = self.pr()
         return stanton * prandtl**(2/3)
 
     def coj_m(self):
         # Colburn j factor mass
-        stantonmass = self.stm(numeric=True)
-        schmidt = self.sc(numeric=True)
+        stantonmass = self.stm()
+        schmidt = self.sc()
         return stantonmass * schmidt ** (2/3)
 
     def ja(self):

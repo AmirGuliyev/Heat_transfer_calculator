@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Heat Transfer Calculator',
+    name='heat_transfer_calculator',
     version='0.1',
     packages=find_packages(),
     url='https://github.com/AmirGuliyev/Heat_transfer_calculator',
     license='MIT',
-    author='AmirG',
+    author='KusmasVinya',
     author_email='guliyevamir@yahoo.com',
-    description='Basic heat translator calculator for most undergrad textbook questions',
-   install_requires= ['numpy','fluidprop'],
+    description='A basic heat transfer calculator for undergraduate textbook problems',
+    install_requires=['numpy', 'fluidprop'],
 )
